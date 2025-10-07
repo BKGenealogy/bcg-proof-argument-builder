@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCG Proof Argument Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-icon {
+            padding: 8px;
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .evidence-list {
+            margin-top: 20px;
+        }
+
+        .evidence-item {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+
+        .evidence-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .evidence-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f8f9fa;
+        }
+
+        .evidence-number {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+
+        .evidence-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .evidence-detail {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .evidence-detail strong {
+            display: block;
+            color: #6c757d;
+            font-size: 0.85em;
+            margin-bottom: 4px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .badge-original {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-derivative {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-primary {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .badge-secondary {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .badge-direct {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .badge-indirect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-negative {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .reliability-high {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .reliability-medium {
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        .reliability-low {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .correlation-matrix {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        .correlation-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .correlation-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .correlation-table td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .correlation-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .correlation-agree {
+            background: #d4edda;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #155724;
+        }
+
+        .correlation-conflict {
+            background: #f8d7da;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #721c24;
+        }
+
+        .correlation-silent {
+            background: #e2e3e5;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #383d41;
+        }
+
+        .gps-checklist {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .gps-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .gps-item.complete {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+
+        .gps-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .export-section {
+            background: #e7f5ff;
+            border: 2px solid #339af0;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .export-section h3 {
+            color: #1864ab;
+            margin-bottom: 15px;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .help-text {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .btn,
+            .export-section {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚖️ BCG Proof Argument Builder</h1>
+            <p>Board for Certification of Genealogists - Genealogical Proof Standard Compliant</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Section 1: Claim Statement -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>1️⃣ Claim Statement</h2>
+                </div>
+                <div class="form-group">
+                    <label>What are you trying to prove?</label>
+                    <textarea id="claimStatement" placeholder="Example: John Smith, born circa 1820 in Virginia, was the son of William Smith (1795-1870) and Mary Jones (1800-1865)."></textarea>
+                    <div class="help-text">State your conclusion clearly and specifically. This is what your evidence will support.</div>
+                </div>
+            </div>
+
+            <!-- Section 2: Known Information -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>2️⃣ Known Information at Start</h2>
+                </div>
+                <div class="form-group">
+                    <label>What did you know before beginning this research?</label>
+                    <textarea id="knownInfo" placeholder="List facts, family stories, previous research, etc. that you started with."></textarea>
+                    <div class="help-text">Document your starting point to show the research path you took.</div>
+                </div>
+            </div>
+
+            <!-- Section 3: Evidence -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>3️⃣ Evidence Analysis</h2>
+                    <button class="btn btn-primary" onclick="addEvidence()">➕ Add Evidence</button>
+                </div>
+                <div id="evidenceList" class="evidence-list">
+                    <p style="text-align: center; color: #6c757d;">No evidence added yet. Click "Add Evidence" to begin.</p>
+                </div>
+            </div>
+
+            <!-- Section 4: Correlation Matrix -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>4️⃣ Evidence Correlation</h2>
+                    <button class="btn btn-secondary" onclick="generateCorrelationMatrix()">🔄 Generate Matrix</button>
+                </div>
+                <div id="correlationMatrix" class="correlation-matrix">
+                    <p style="text-align: center; color: #6c757d;">Add at least 2 pieces of evidence to generate correlation matrix.</p>
+                </div>
+            </div>
+
+            <!-- Section 5: Conflict Resolution -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>5️⃣ Conflict Resolution</h2>
+                </div>
+                <div class="form-group">
+                    <label>How did you resolve conflicting or contradictory evidence?</label>
+                    <textarea id="conflictResolution" placeholder="Explain how you evaluated conflicting sources, resolved contradictions, and determined which evidence is most reliable."></textarea>
+                    <div class="help-text">Document your reasoning process for handling any conflicts between sources.</div>
+                </div>
+            </div>
+
+            <!-- Section 6: Reasoned Conclusion -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>6️⃣ Reasoned Conclusion</h2>
+                </div>
+                <div class="form-group">
+                    <label>What is your conclusion and reasoning?</label>
+                    <textarea id="conclusion" placeholder="State your conclusion and explain how the preponderance of evidence supports it. Reference specific evidence items."></textarea>
+                    <div class="help-text">Explain how your evidence supports your claim. Be specific about which sources prove which facts.</div>
+                </div>
+            </div>
+
+            <!-- GPS Compliance Checklist -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>7️⃣ GPS Compliance Checklist</h2>
+                </div>
+                <div class="gps-checklist">
+                    <div class="gps-item">
+                        <input type="checkbox" id="gps1" onchange="updateGPS()">
+                        <label for="gps1"><strong>Reasonably Exhaustive Research:</strong> Have you searched thoroughly across multiple source types and repositories?</label>
+                    </div>
+                    <div class="gps-item">
+                        <input type="checkbox" id="gps2" onchange="updateGPS()">
+                        <label for="gps2"><strong>Complete & Accurate Citations:</strong> Are all sources properly cited with full Evidence Explained format?</label>
+                    </div>
+                    <div class="gps-item">
+                        <input type="checkbox" id="gps3" onchange="updateGPS()">
+                        <label for="gps3"><strong>Analysis & Correlation:</strong> Have you analyzed each source and shown how they correlate?</label>
+                    </div>
+                    <div class="gps-item">
+                        <input type="checkbox" id="gps4" onchange="updateGPS()">
+                        <label for="gps4"><strong>Resolution of Conflicts:</strong> Have you addressed and resolved all conflicting evidence?</label>
+                    </div>
+                    <div class="gps-item">
+                        <input type="checkbox" id="gps5" onchange="updateGPS()">
+                        <label for="gps5"><strong>Soundly Written Conclusion:</strong> Does your conclusion logically follow from the evidence presented?</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Section -->
+            <div class="export-section">
+                <h3>📄 Export Your Proof Argument</h3>
+                <div class="export-buttons">
+                    <button class="btn btn-success" onclick="generateProof()">📋 Preview Proof Argument</button>
+                    <button class="btn btn-primary" onclick="exportToWord()">📝 Export to Word</button>
+                    <button class="btn btn-secondary" onclick="saveProject()">💾 Save Project</button>
+                    <button class="btn btn-secondary" onclick="loadProject()">📂 Load Project</button>
+                    <button class="btn btn-danger" onclick="clearAll()">🗑️ Clear & Start New</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let evidenceItems = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFromStorage();
+        });
+
+        // Add evidence item
+        function addEvidence() {
+            const evidence = {
+                id: Date.now(),
+                citation: '',
+                sourceType: 'original',
+                infoType: 'primary',
+                evidenceType: 'direct',
+                reliability: 'high',
+                summary: '',
+                analysis: ''
+            };
+            evidenceItems.push(evidence);
+            renderEvidence();
+            saveToStorage();
+        }
+
+        // Render evidence list
+        function renderEvidence() {
+            const container = document.getElementById('evidenceList');
+            if (evidenceItems.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d;">No evidence added yet. Click "Add Evidence" to begin.</p>';
+                return;
+            }
+
+            container.innerHTML = evidenceItems.map((item, index) => `
+                <div class="evidence-item">
+                    <div class="evidence-header">
+                        <span class="evidence-number">Evidence #${index + 1}</span>
+                        <button class="btn btn-danger btn-icon" onclick="deleteEvidence(${item.id})" title="Delete">🗑️</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Full Source Citation:</label>
+                        <textarea onchange="updateEvidence(${item.id}, 'citation', this.value)" placeholder="Paste complete Evidence Explained citation here">${item.citation}</textarea>
+                    </div>
+
+                    <div class="evidence-details">
+                        <div class="evidence-detail">
+                            <strong>Source Classification:</strong>
+                            <select onchange="updateEvidence(${item.id}, 'sourceType', this.value)">
+                                <option value="original" ${item.sourceType === 'original' ? 'selected' : ''}>Original</option>
+                                <option value="derivative" ${item.sourceType === 'derivative' ? 'selected' : ''}>Derivative</option>
+                            </select>
+                        </div>
+                        <div class="evidence-detail">
+                            <strong>Information Type:</strong>
+                            <select onchange="updateEvidence(${item.id}, 'infoType', this.value)">
+                                <option value="primary" ${item.infoType === 'primary' ? 'selected' : ''}>Primary</option>
+                                <option value="secondary" ${item.infoType === 'secondary' ? 'selected' : ''}>Secondary</option>
+                            </select>
+                        </div>
+                        <div class="evidence-detail">
+                            <strong>Evidence Type:</strong>
+                            <select onchange="updateEvidence(${item.id}, 'evidenceType', this.value)">
+                                <option value="direct" ${item.evidenceType === 'direct' ? 'selected' : ''}>Direct</option>
+                                <option value="indirect" ${item.evidenceType === 'indirect' ? 'selected' : ''}>Indirect</option>
+                                <option value="negative" ${item.evidenceType === 'negative' ? 'selected' : ''}>Negative</option>
+                            </select>
+                        </div>
+                        <div class="evidence-detail">
+                            <strong>Reliability:</strong>
+                            <select onchange="updateEvidence(${item.id}, 'reliability', this.value)">
+                                <option value="high" ${item.reliability === 'high' ? 'selected' : ''}>High</option>
+                                <option value="medium" ${item.reliability === 'medium' ? 'selected' : ''}>Medium</option>
+                                <option value="low" ${item.reliability === 'low' ? 'selected' : ''}>Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What does this source tell us?</label>
+                        <textarea onchange="updateEvidence(${item.id}, 'summary', this.value)" placeholder="Summarize the relevant information from this source">${item.summary}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Analysis & Evaluation:</label>
+                        <textarea onchange="updateEvidence(${item.id}, 'analysis', this.value)" placeholder="Why is this source reliable/unreliable? How does it support your claim?">${item.analysis}</textarea>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update evidence
+        function updateEvidence(id, field, value) {
+            const item = evidenceItems.find(e => e.id === id);
+            if (item) {
+                item[field] = value;
+                saveToStorage();
+            }
+        }
+
+        // Delete evidence
+        function deleteEvidence(id) {
+            if (confirm('Delete this evidence item?')) {
+                evidenceItems = evidenceItems.filter(e => e.id !== id);
+                renderEvidence();
+                saveToStorage();
+            }
+        }
+
+        // Generate correlation matrix
+        function generateCorrelationMatrix() {
+            const container = document.getElementById('correlationMatrix');
+            
+            if (evidenceItems.length < 2) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d;">Add at least 2 pieces of evidence to generate correlation matrix.</p>';
+                return;
+            }
+
+            let html = '<table class="correlation-table"><thead><tr><th>Evidence</th><th>Source Type</th><th>Info Type</th><th>Evidence Type</th><th>Reliability</th><th>Key Facts</th></tr></thead><tbody>';
+
+            evidenceItems.forEach((item, index) => {
+                const sourceClass = item.sourceType === 'original' ? 'badge-original' : 'badge-derivative';
+                const infoClass = item.infoType === 'primary' ? 'badge-primary' : 'badge-secondary';
+                const evidenceClass = item.evidenceType === 'direct' ? 'badge-direct' : item.evidenceType === 'indirect' ? 'badge-indirect' : 'badge-negative';
+                const reliabilityClass = `reliability-${item.reliability}`;
+
+                html += `
+                    <tr>
+                        <td><strong>Evidence #${index + 1}</strong></td>
+                        <td><span class="badge ${sourceClass}">${item.sourceType}</span></td>
+                        <td><span class="badge ${infoClass}">${item.infoType}</span></td>
+                        <td><span class="badge ${evidenceClass}">${item.evidenceType}</span></td>
+                        <td><span class="${reliabilityClass}">${item.reliability.toUpperCase()}</span></td>
+                        <td>${item.summary.substring(0, 100)}${item.summary.length > 100 ? '...' : ''}</td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            html += '<div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 6px;"><strong>Analysis Tip:</strong> Review your evidence table above. Do multiple sources agree? Are there conflicts? Document how sources corroborate or contradict each other in the Conflict Resolution section.</div>';
+
+            container.innerHTML = html;
+        }
+
+        // Update GPS
+        function updateGPS() {
+            ['gps1', 'gps2', 'gps3', 'gps4', 'gps5'].forEach(id => {
+                const checkbox = document.getElementById(id);
+                checkbox.closest('.gps-item').classList.toggle('complete', checkbox.checked);
+            });
+            saveToStorage();
+        }
+
+        // Generate proof argument
+        function generateProof() {
+            const proof = buildProofHTML();
+            const win = window.open('', '_blank');
+            win.document.write(proof);
+            win.document.close();
+        }
+
+        // Build proof HTML
+        function buildProofHTML() {
+            const claim = document.getElementById('claimStatement').value;
+            const known = document.getElementById('knownInfo').value;
+            const conflicts = document.getElementById('conflictResolution').value;
+            const conclusion = document.getElementById('conclusion').value;
+
+            let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>BCG Proof Argument</title><style>
+                body { font-family: 'Times New Roman', serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; }
+                h1 { text-align: center; font-size: 18pt; margin-bottom: 30px; }
+                h2 { font-size: 14pt; margin-top: 25px; margin-bottom: 12px; border-bottom: 2px solid #333; }
+                h3 { font-size: 12pt; margin-top: 20px; margin-bottom: 10px; }
+                p { text-align: justify; margin-bottom: 12px; }
+                .claim { background: #f0f4ff; padding: 15px; margin: 20px 0; border-left: 4px solid #667eea; font-weight: 600; }
+                .evidence { margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 3px solid #6c757d; }
+                .evidence-header { font-weight: bold; margin-bottom: 8px; }
+                .citation { font-style: italic; margin: 8px 0; }
+                .analysis { margin-top: 8px; }
+            </style></head><body>
+            <h1>PROOF ARGUMENT</h1>
+            
+            <h2>CLAIM</h2>
+            <div class="claim">${claim}</div>
+
+            <h2>KNOWN INFORMATION</h2>
+            <p>${known.replace(/\n/g, '</p><p>')}</p>
+
+            <h2>EVIDENCE ANALYSIS</h2>`;
+
+            evidenceItems.forEach((item, index) => {
+                html += `
+                <div class="evidence">
+                    <div class="evidence-header">Evidence #${index + 1} - ${item.sourceType.toUpperCase()} Source, ${item.infoType.toUpperCase()} Information, ${item.evidenceType.toUpperCase()} Evidence (Reliability: ${item.reliability.toUpperCase()})</div>
+                    <div class="citation">${item.citation}</div>
+                    <p><strong>Information Provided:</strong> ${item.summary}</p>
+                    <div class="analysis"><strong>Analysis:</strong> ${item.analysis}</div>
+                </div>`;
+            });
+
+            html += `
+            <h2>EVIDENCE CORRELATION & CONFLICT RESOLUTION</h2>
+            <p>${conflicts.replace(/\n/g, '</p><p>')}</p>
+
+            <h2>REASONED CONCLUSION</h2>
+            <p>${conclusion.replace(/\n/g, '</p><p>')}</p>
+
+            </body></html>`;
+            return html;
+        }
+
+        // Export to Word
+        function exportToWord() {
+            const proof = buildProofHTML();
+            const blob = new Blob([proof], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'BCG_Proof_Argument_' + new Date().toISOString().split('T')[0] + '.doc';
+            a.click();
+        }
+
+        // Storage functions
+        function saveToStorage() {
+            const data = {
+                evidenceItems,
+                claimStatement: document.getElementById('claimStatement').value,
+                knownInfo: document.getElementById('knownInfo').value,
+                conflictResolution: document.getElementById('conflictResolution').value,
+                conclusion: document.getElementById('conclusion').value,
+                gps: {
+                    gps1: document.getElementById('gps1').checked,
+                    gps2: document.getElementById('gps2').checked,
+                    gps3: document.getElementById('gps3').checked,
+                    gps4: document.getElementById('gps4').checked,
+                    gps5: document.getElementById('gps5').checked
+                }
+            };
+            localStorage.setItem('bcgProofArgument', JSON.stringify(data));
+        }
+
+        function loadFromStorage() {
+            const stored = localStorage.getItem('bcgProofArgument');
+            if (stored) {
+                const data = JSON.parse(stored);
+                evidenceItems = data.evidenceItems || [];
+                document.getElementById('claimStatement').value = data.claimStatement || '';
+                document.getElementById('knownInfo').value = data.knownInfo || '';
+                document.getElementById('conflictResolution').value = data.conflictResolution || '';
+                document.getElementById('conclusion').value = data.conclusion || '';
+                if (data.gps) {
+                    document.getElementById('gps1').checked = data.gps.gps1;
+                    document.getElementById('gps2').checked = data.gps.gps2;
+                    document.getElementById('gps3').checked = data.gps.gps3;
+                    document.getElementById('gps4').checked = data.gps.gps4;
+                    document.getElementById('gps5').checked = data.gps.gps5;
+                    updateGPS();
+                }
+                renderEvidence();
+            }
+        }
+
+        function saveProject() {
+            saveToStorage();
+            const data = localStorage.getItem('bcgProofArgument');
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'proof_argument_' + new Date().toISOString().split('T')[0] + '.json';
+            a.click();
+            alert('✅ Project saved!');
+        }
+
+        function loadProject() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = e => {
+                    localStorage.setItem('bcgProofArgument', e.target.result);
+                    loadFromStorage();
+                    alert('✅ Project loaded!');
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function clearAll() {
+            if (confirm('⚠️ Clear all data and start a new proof argument?\n\nThis cannot be undone!')) {
+                document.getElementById('claimStatement').value = '';
+                document.getElementById('knownInfo').value = '';
+                document.getElementById('conflictResolution').value = '';
+                document.getElementById('conclusion').value = '';
+                document.getElementById('gps1').checked = false;
+                document.getElementById('gps2').checked = false;
+                document.getElementById('gps3').checked = false;
+                document.getElementById('gps4').checked = false;
+                document.getElementById('gps5').checked = false;
+                updateGPS();
+                evidenceItems = [];
+                renderEvidence();
+                localStorage.removeItem('bcgProofArgument');
+                alert('✅ All data cleared!');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        document.addEventListener('input', saveToStorage);
+    </script>
+</body>
+</html>
