@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BCG Proof Argument Builder</title>
+    <title>⚖️ BCG Proof Argument Builder</title>
     <style>
         * {
             margin: 0;
@@ -12,36 +12,37 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Georgia, 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f5f1e8 0%, #e8dcc8 100%);
             min-height: 100vh;
             padding: 20px;
+            line-height: 1.6;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background: linear-gradient(135deg, #5c4033 0%, #8b6f47 100%);
             color: white;
-            padding: 30px;
+            padding: 40px;
             text-align: center;
         }
 
         .header h1 {
-            font-size: 2em;
+            font-size: 32px;
             margin-bottom: 10px;
         }
 
         .header p {
-            opacity: 0.9;
-            font-size: 1.1em;
+            opacity: 0.95;
+            font-size: 16px;
         }
 
         .main-content {
@@ -51,9 +52,9 @@
         .section {
             margin-bottom: 30px;
             padding: 25px;
-            background: #f8f9fa;
+            background: #f9f6f0;
             border-radius: 8px;
-            border-left: 4px solid #667eea;
+            border: 2px solid #d4c4a8;
         }
 
         .section-header {
@@ -61,11 +62,13 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #d4c4a8;
         }
 
         .section-header h2 {
-            color: #2c3e50;
-            font-size: 1.5em;
+            color: #5c4033;
+            font-size: 24px;
         }
 
         .form-group {
@@ -75,9 +78,9 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #2c3e50;
-            font-weight: 600;
-            font-size: 0.95em;
+            color: #5c4033;
+            font-weight: bold;
+            font-size: 14px;
         }
 
         .form-group input,
@@ -85,18 +88,19 @@
         .form-group select {
             width: 100%;
             padding: 12px;
-            border: 2px solid #dee2e6;
+            border: 2px solid #d4c4a8;
             border-radius: 6px;
-            font-size: 1em;
-            font-family: inherit;
+            font-size: 14px;
+            font-family: Georgia, serif;
             transition: border-color 0.3s ease;
+            background: white;
         }
 
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #8b6f47;
         }
 
         .form-group textarea {
@@ -108,8 +112,9 @@
             padding: 12px 24px;
             border: none;
             border-radius: 6px;
-            font-size: 1em;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: bold;
+            font-family: Georgia, serif;
             cursor: pointer;
             transition: all 0.3s ease;
             display: inline-flex;
@@ -118,14 +123,14 @@
         }
 
         .btn-primary {
-            background: #667eea;
+            background: #8b6f47;
             color: white;
         }
 
         .btn-primary:hover {
-            background: #5568d3;
+            background: #5c4033;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 12px rgba(92, 64, 51, 0.3);
         }
 
         .btn-secondary {
@@ -173,13 +178,13 @@
             padding: 20px;
             border-radius: 6px;
             margin-bottom: 15px;
-            border: 2px solid #dee2e6;
+            border: 2px solid #d4c4a8;
             transition: all 0.3s ease;
         }
 
         .evidence-item:hover {
-            border-color: #667eea;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-color: #8b6f47;
+            box-shadow: 0 2px 8px rgba(139, 111, 71, 0.2);
         }
 
         .evidence-header {
@@ -188,13 +193,13 @@
             align-items: center;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #f8f9fa;
+            border-bottom: 2px solid #f9f6f0;
         }
 
         .evidence-number {
-            font-weight: 700;
-            color: #667eea;
-            font-size: 1.2em;
+            font-weight: bold;
+            color: #5c4033;
+            font-size: 18px;
         }
 
         .evidence-details {
@@ -206,14 +211,15 @@
 
         .evidence-detail {
             padding: 10px;
-            background: #f8f9fa;
+            background: #f9f6f0;
             border-radius: 4px;
+            border-left: 3px solid #d4c4a8;
         }
 
         .evidence-detail strong {
             display: block;
-            color: #6c757d;
-            font-size: 0.85em;
+            color: #5c4033;
+            font-size: 12px;
             margin-bottom: 4px;
         }
 
@@ -221,8 +227,8 @@
             display: inline-block;
             padding: 4px 12px;
             border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: bold;
         }
 
         .badge-original {
@@ -262,17 +268,17 @@
 
         .reliability-high {
             color: #28a745;
-            font-weight: 600;
+            font-weight: bold;
         }
 
         .reliability-medium {
             color: #ffc107;
-            font-weight: 600;
+            font-weight: bold;
         }
 
         .reliability-low {
             color: #dc3545;
-            font-weight: 600;
+            font-weight: bold;
         }
 
         .correlation-matrix {
@@ -289,44 +295,20 @@
         }
 
         .correlation-table th {
-            background: #667eea;
+            background: #8b6f47;
             color: white;
             padding: 12px;
             text-align: left;
-            font-weight: 600;
+            font-weight: bold;
         }
 
         .correlation-table td {
             padding: 12px;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid #d4c4a8;
         }
 
         .correlation-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        .correlation-agree {
-            background: #d4edda;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            color: #155724;
-        }
-
-        .correlation-conflict {
-            background: #f8d7da;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            color: #721c24;
-        }
-
-        .correlation-silent {
-            background: #e2e3e5;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            color: #383d41;
+            background: #f9f6f0;
         }
 
         .gps-checklist {
@@ -342,8 +324,9 @@
             gap: 12px;
             padding: 12px;
             margin-bottom: 10px;
-            background: #f8f9fa;
+            background: #f9f6f0;
             border-radius: 6px;
+            border-left: 3px solid #d4c4a8;
             transition: all 0.3s ease;
         }
 
@@ -358,17 +341,25 @@
             cursor: pointer;
         }
 
+        .gps-item label {
+            cursor: pointer;
+            color: #5c4033;
+            font-size: 14px;
+        }
+
         .export-section {
-            background: #e7f5ff;
-            border: 2px solid #339af0;
+            background: #fff8e7;
+            border: 2px solid #f39c12;
+            border-left: 4px solid #f39c12;
             border-radius: 8px;
             padding: 25px;
             text-align: center;
         }
 
         .export-section h3 {
-            color: #1864ab;
+            color: #5c4033;
             margin-bottom: 15px;
+            font-size: 20px;
         }
 
         .export-buttons {
@@ -379,10 +370,48 @@
         }
 
         .help-text {
-            font-size: 0.9em;
-            color: #6c757d;
+            font-size: 12px;
+            color: #8b6f47;
             margin-top: 5px;
             font-style: italic;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #5c4033 0%, #8b6f47 100%);
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .banner-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .banner-text {
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .section-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .export-buttons {
+                flex-direction: column;
+            }
+            
+            .banner-content {
+                flex-direction: column;
+                text-align: center;
+            }
         }
 
         @media print {
@@ -390,85 +419,115 @@
                 background: white;
             }
             .btn,
-            .export-section {
+            .export-section,
+            .banner {
                 display: none;
+            }
+        }
+
+        /* ============================================
+           BK GENEALOGY UNIVERSAL PRINT OPTIMIZATION
+           ============================================ */
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            @page {
+                size: letter;
+                margin: 0.5in 0.75in;
+            }
+            
+            body {
+                background: white !important;
+                padding: 0;
+                margin: 0;
+                font-size: 11pt;
+                line-height: 1.4;
+            }
+            
+            .container {
+                max-width: 100%;
+                box-shadow: none;
+                padding: 0;
+                border-radius: 0;
+                background: white;
+            }
+            
+            h1 {
+                color: #5c4033 !important;
+                font-size: 20pt;
+                border-bottom: 2px solid #d4c4a8 !important;
+                padding-bottom: 8pt;
+                margin-bottom: 12pt;
+                page-break-after: avoid;
+            }
+            
+            .section {
+                background: #f9f6f0 !important;
+                border: 1px solid #d4c4a8 !important;
+                border-radius: 0;
+                padding: 12pt;
+                margin-bottom: 12pt;
+                page-break-inside: avoid;
+            }
+            
+            .section h2 {
+                color: #5c4033 !important;
+                font-size: 14pt;
+                border-bottom: 1px solid #d4c4a8 !important;
+                padding-bottom: 6pt;
+                margin-bottom: 10pt;
+                page-break-after: avoid;
+            }
+            
+            .evidence-item {
+                background: white !important;
+                border: 1px solid #d4c4a8 !important;
+                page-break-inside: avoid;
+                margin-bottom: 12pt;
+            }
+            
+            .form-group {
+                margin-bottom: 10pt;
+                page-break-inside: avoid;
+            }
+            
+            label {
+                display: block;
+                font-weight: bold;
+                font-size: 10pt;
+                color: #5c4033 !important;
+                margin-bottom: 4pt;
+            }
+            
+            input, textarea, select {
+                border: 1px solid #d4c4a8 !important;
+                background: white !important;
+                padding: 6pt;
+                font-size: 10pt;
+            }
+            
+            .correlation-table {
+                page-break-inside: avoid;
+            }
+            
+            .correlation-table th {
+                background: #8b6f47 !important;
+                -webkit-print-color-adjust: exact;
             }
         }
     </style>
 </head>
 <body>
-    <!-- BCG Toolkit Header Banner -->
-<!-- Add this IMMEDIATELY after the opening <body> tag in each tool -->
-
-<div class="bcg-toolkit-banner">
-    <div class="banner-content">
-        <span class="banner-text">📚 Part of the <strong>BCG Portfolio Toolkit</strong></span>
-        <a href="https://bkgenealogy.github.io/" class="banner-link">View All Tools →</a>
+    <div class="banner">
+        <div class="banner-content">
+            <span class="banner-text">📚 Part of the <strong>BCG Portfolio Toolkit</strong></span>
+        </div>
     </div>
-</div>
 
-<style>
-    .bcg-toolkit-banner {
-        background: linear-gradient(135deg, #5c4033 0%, #8b6f47 100%);
-        color: white;
-        padding: 12px 20px;
-        text-align: center;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        font-family: Georgia, 'Times New Roman', serif;
-    }
-    
-    .banner-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    
-    .banner-text {
-        font-size: 14px;
-        opacity: 0.95;
-    }
-    
-    .banner-text strong {
-        font-weight: bold;
-    }
-    
-    .banner-link {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        padding: 6px 15px;
-        text-decoration: none;
-        border-radius: 4px;
-        font-size: 13px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    
-    .banner-link:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: translateY(-1px);
-    }
-    
-    @media (max-width: 600px) {
-        .banner-content {
-            flex-direction: column;
-            text-align: center;
-        }
-        
-        .banner-text {
-            font-size: 13px;
-        }
-    }
-</style>
-
-<!-- End BCG Toolkit Header Banner -->
     <div class="container">
         <div class="header">
             <h1>⚖️ BCG Proof Argument Builder</h1>
@@ -507,7 +566,7 @@
                     <button class="btn btn-primary" onclick="addEvidence()">➕ Add Evidence</button>
                 </div>
                 <div id="evidenceList" class="evidence-list">
-                    <p style="text-align: center; color: #6c757d;">No evidence added yet. Click "Add Evidence" to begin.</p>
+                    <p style="text-align: center; color: #8b6f47;">No evidence added yet. Click "Add Evidence" to begin.</p>
                 </div>
             </div>
 
@@ -518,7 +577,7 @@
                     <button class="btn btn-secondary" onclick="generateCorrelationMatrix()">🔄 Generate Matrix</button>
                 </div>
                 <div id="correlationMatrix" class="correlation-matrix">
-                    <p style="text-align: center; color: #6c757d;">Add at least 2 pieces of evidence to generate correlation matrix.</p>
+                    <p style="text-align: center; color: #8b6f47;">Add at least 2 pieces of evidence to generate correlation matrix.</p>
                 </div>
             </div>
 
@@ -580,10 +639,11 @@
                 <h3>📄 Export Your Proof Argument</h3>
                 <div class="export-buttons">
                     <button class="btn btn-success" onclick="generateProof()">📋 Preview Proof Argument</button>
-                    <button class="btn btn-primary" onclick="exportToWord()">📝 Export to Word</button>
+                    <button class="btn btn-primary" onclick="printProof()">🖨️ Print Proof Argument</button>
+                    <button class="btn btn-secondary" onclick="exportToWord()">📝 Export to Word</button>
                     <button class="btn btn-secondary" onclick="saveProject()">💾 Save Project</button>
                     <button class="btn btn-secondary" onclick="loadProject()">📂 Load Project</button>
-                    <button class="btn btn-danger" onclick="clearAll()">🗑️ Clear & Start New</button>
+                    <button class="btn btn-danger" onclick="clearAll()">🗑️ Clear All</button>
                 </div>
             </div>
         </div>
@@ -592,12 +652,10 @@
     <script>
         let evidenceItems = [];
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             loadFromStorage();
         });
 
-        // Add evidence item
         function addEvidence() {
             const evidence = {
                 id: Date.now(),
@@ -614,11 +672,10 @@
             saveToStorage();
         }
 
-        // Render evidence list
         function renderEvidence() {
             const container = document.getElementById('evidenceList');
             if (evidenceItems.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #6c757d;">No evidence added yet. Click "Add Evidence" to begin.</p>';
+                container.innerHTML = '<p style="text-align: center; color: #8b6f47;">No evidence added yet. Click "Add Evidence" to begin.</p>';
                 return;
             }
 
@@ -637,21 +694,21 @@
                     <div class="evidence-details">
                         <div class="evidence-detail">
                             <strong>Source Classification:</strong>
-                            <select onchange="updateEvidence(${item.id}, 'sourceType', this.value)">
+                            <select onchange="updateEvidence(${item.id}, 'sourceType', this.value)" style="width: 100%; padding: 8px; border: 2px solid #d4c4a8; border-radius: 4px; font-family: Georgia, serif;">
                                 <option value="original" ${item.sourceType === 'original' ? 'selected' : ''}>Original</option>
                                 <option value="derivative" ${item.sourceType === 'derivative' ? 'selected' : ''}>Derivative</option>
                             </select>
                         </div>
                         <div class="evidence-detail">
                             <strong>Information Type:</strong>
-                            <select onchange="updateEvidence(${item.id}, 'infoType', this.value)">
+                            <select onchange="updateEvidence(${item.id}, 'infoType', this.value)" style="width: 100%; padding: 8px; border: 2px solid #d4c4a8; border-radius: 4px; font-family: Georgia, serif;">
                                 <option value="primary" ${item.infoType === 'primary' ? 'selected' : ''}>Primary</option>
                                 <option value="secondary" ${item.infoType === 'secondary' ? 'selected' : ''}>Secondary</option>
                             </select>
                         </div>
                         <div class="evidence-detail">
                             <strong>Evidence Type:</strong>
-                            <select onchange="updateEvidence(${item.id}, 'evidenceType', this.value)">
+                            <select onchange="updateEvidence(${item.id}, 'evidenceType', this.value)" style="width: 100%; padding: 8px; border: 2px solid #d4c4a8; border-radius: 4px; font-family: Georgia, serif;">
                                 <option value="direct" ${item.evidenceType === 'direct' ? 'selected' : ''}>Direct</option>
                                 <option value="indirect" ${item.evidenceType === 'indirect' ? 'selected' : ''}>Indirect</option>
                                 <option value="negative" ${item.evidenceType === 'negative' ? 'selected' : ''}>Negative</option>
@@ -659,7 +716,7 @@
                         </div>
                         <div class="evidence-detail">
                             <strong>Reliability:</strong>
-                            <select onchange="updateEvidence(${item.id}, 'reliability', this.value)">
+                            <select onchange="updateEvidence(${item.id}, 'reliability', this.value)" style="width: 100%; padding: 8px; border: 2px solid #d4c4a8; border-radius: 4px; font-family: Georgia, serif;">
                                 <option value="high" ${item.reliability === 'high' ? 'selected' : ''}>High</option>
                                 <option value="medium" ${item.reliability === 'medium' ? 'selected' : ''}>Medium</option>
                                 <option value="low" ${item.reliability === 'low' ? 'selected' : ''}>Low</option>
@@ -680,7 +737,6 @@
             `).join('');
         }
 
-        // Update evidence
         function updateEvidence(id, field, value) {
             const item = evidenceItems.find(e => e.id === id);
             if (item) {
@@ -689,7 +745,6 @@
             }
         }
 
-        // Delete evidence
         function deleteEvidence(id) {
             if (confirm('Delete this evidence item?')) {
                 evidenceItems = evidenceItems.filter(e => e.id !== id);
@@ -698,12 +753,11 @@
             }
         }
 
-        // Generate correlation matrix
         function generateCorrelationMatrix() {
             const container = document.getElementById('correlationMatrix');
             
             if (evidenceItems.length < 2) {
-                container.innerHTML = '<p style="text-align: center; color: #6c757d;">Add at least 2 pieces of evidence to generate correlation matrix.</p>';
+                container.innerHTML = '<p style="text-align: center; color: #8b6f47;">Add at least 2 pieces of evidence to generate correlation matrix.</p>';
                 return;
             }
 
@@ -728,12 +782,11 @@
             });
 
             html += '</tbody></table>';
-            html += '<div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 6px;"><strong>Analysis Tip:</strong> Review your evidence table above. Do multiple sources agree? Are there conflicts? Document how sources corroborate or contradict each other in the Conflict Resolution section.</div>';
+            html += '<div style="margin-top: 20px; padding: 15px; background: #fff8e7; border-radius: 6px; border-left: 3px solid #f39c12;"><strong>Analysis Tip:</strong> Review your evidence table above. Do multiple sources agree? Are there conflicts? Document how sources corroborate or contradict each other in the Conflict Resolution section.</div>';
 
             container.innerHTML = html;
         }
 
-        // Update GPS
         function updateGPS() {
             ['gps1', 'gps2', 'gps3', 'gps4', 'gps5'].forEach(id => {
                 const checkbox = document.getElementById(id);
@@ -742,7 +795,6 @@
             saveToStorage();
         }
 
-        // Generate proof argument
         function generateProof() {
             const proof = buildProofHTML();
             const win = window.open('', '_blank');
@@ -750,7 +802,16 @@
             win.document.close();
         }
 
-        // Build proof HTML
+        function printProof() {
+            const proof = buildProofHTML();
+            const win = window.open('', '_blank');
+            win.document.write(proof);
+            win.document.close();
+            setTimeout(() => {
+                win.print();
+            }, 250);
+        }
+
         function buildProofHTML() {
             const claim = document.getElementById('claimStatement').value;
             const known = document.getElementById('knownInfo').value;
@@ -758,13 +819,13 @@
             const conclusion = document.getElementById('conclusion').value;
 
             let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>BCG Proof Argument</title><style>
-                body { font-family: 'Times New Roman', serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; }
-                h1 { text-align: center; font-size: 18pt; margin-bottom: 30px; }
-                h2 { font-size: 14pt; margin-top: 25px; margin-bottom: 12px; border-bottom: 2px solid #333; }
-                h3 { font-size: 12pt; margin-top: 20px; margin-bottom: 10px; }
+                body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; }
+                h1 { text-align: center; font-size: 18pt; margin-bottom: 30px; color: #5c4033; }
+                h2 { font-size: 14pt; margin-top: 25px; margin-bottom: 12px; border-bottom: 2px solid #d4c4a8; color: #5c4033; }
+                h3 { font-size: 12pt; margin-top: 20px; margin-bottom: 10px; color: #5c4033; }
                 p { text-align: justify; margin-bottom: 12px; }
-                .claim { background: #f0f4ff; padding: 15px; margin: 20px 0; border-left: 4px solid #667eea; font-weight: 600; }
-                .evidence { margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 3px solid #6c757d; }
+                .claim { background: #f9f6f0; padding: 15px; margin: 20px 0; border-left: 4px solid #8b6f47; font-weight: 600; }
+                .evidence { margin: 15px 0; padding: 15px; background: #f9f6f0; border-left: 3px solid #8b6f47; page-break-inside: avoid; }
                 .evidence-header { font-weight: bold; margin-bottom: 8px; }
                 .citation { font-style: italic; margin: 8px 0; }
                 .analysis { margin-top: 8px; }
@@ -800,7 +861,6 @@
             return html;
         }
 
-        // Export to Word
         function exportToWord() {
             const proof = buildProofHTML();
             const blob = new Blob([proof], { type: 'application/msword' });
@@ -811,7 +871,6 @@
             a.click();
         }
 
-        // Storage functions
         function saveToStorage() {
             const data = {
                 evidenceItems,
